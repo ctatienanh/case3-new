@@ -11,6 +11,7 @@
 
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -64,6 +65,18 @@
 
 
     </style>
+
+    <script>
+        function choosefile(filename) {
+            if (filename.files && filename.files[0]){
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(filename.files[0])
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -73,14 +86,15 @@
         <div class="col-md-3 border-right">
             <div  class="d-flex flex-column align-items-center text-center p-3 py-5">
                 <label for="file-input">
-                <img  class="rounded-circle mt-5" src="imgg/${u.img}" style="height: 205px; width: 159px">
+                <img  class="rounded-circle mt-5" id="image"   src="imgg/${u.img}" style="height: 205px; width: 159px">
                 </label>
-                <input id="file-input" type="file" name="img"  hidden>
+                <input id="file-input" type="file" name="img" accept="image/gif , image/jpeg, image/png" onchange="choosefile(this)"  hidden>
                 <span class="font-weight-bold">${u.userName}</span><span
                     class="text-black-50">${u.mailUser}</span><span> </span>
             </div>
 
         </div>
+
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
